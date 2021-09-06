@@ -1,0 +1,2 @@
+SELECT us.`user_id`, `user_name`, COUNT(`company_id`) AS no_of_company_drives_attended
+FROM `users` us JOIN `company_drives` cd ON us.`user_id`=cd.`user_id` GROUP BY us.`user_id`;
