@@ -1,0 +1,3 @@
+SELECT cs.`course_id`, `course_name`, no_of_students
+FROM (SELECT `course_id`, COUNT(`user_id`) AS no_of_students FROM `students_activated_courses` GROUP BY `course_id`) sub_q
+JOIN `courses` cs ON sub_q.`course_id`=cs.`course_id`;
