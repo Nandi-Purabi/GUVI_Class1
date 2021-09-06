@@ -1,0 +1,3 @@
+SELECT DISTINCT mt.`mentor_id`,`mentor_name`, no_of_students 
+FROM ( SELECT `mentor_id`, COUNT(`user_id`) AS no_of_students FROM `students_activated_courses` GROUP BY `mentor_id`) sub_q
+JOIN `mentors` mt ON sub_q.`mentor_id`=mt.`mentor_id`;
