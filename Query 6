@@ -1,0 +1,1 @@
+SELECT DISTINCT `mentor_id`,`mentor_name` FROM `mentors`;
