@@ -1,0 +1,12 @@
+CREATE DATABASE GUVI_Class1;
+USE GUVI_Class1;
+CREATE TABLE Users (user_id VARCHAR(7), user_name VARCHAR(45)); 
+CREATE TABLE Codekata (user_id VARCHAR(7), topic_id VARCHAR(5), no_of_problems_solved INT(20));
+CREATE TABLE Attendance (user_id VARCHAR(7), no_of_days_present INT(3));
+CREATE TABLE Topics (topic_id VARCHAR(5), topic_name VARCHAR(30));
+CREATE TABLE Tasks (user_id VARCHAR(7), task_id VARCHAR(5), task_name VARCHAR(30));
+CREATE TABLE Company_Drives (company_id VARCHAR(5), company_name VARCHAR(45), user_id VARCHAR(7)); 
+CREATE TABLE Mentors (mentor_id VARCHAR(7), mentor_name VARCHAR(45), course_id VARCHAR(5));
+CREATE TABLE Students_Activated_Courses (user_id VARCHAR(7), course_id VARCHAR(5), mentor_id VARCHAR(7));
+CREATE TABLE Courses (course_id VARCHAR(5), course_name VARCHAR(30));
+
