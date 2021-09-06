@@ -1,0 +1,2 @@
+SELECT us.`user_id`, `user_name`,SUM(`no_of_problems_solved`) AS total_no_of_problems_solved
+FROM `users` us JOIN `codekata` ck ON us.`user_id`= ck.`user_id` GROUP BY us.`user_id`;
