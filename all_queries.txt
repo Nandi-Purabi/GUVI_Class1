@@ -1,0 +1,64 @@
+Q1.Create tables for the above list given.
+
+CREATE DATABASE GUVI_Class1;
+USE GUVI_Class1;
+CREATE TABLE Users (user_id VARCHAR(7), user_name VARCHAR(45)); 
+CREATE TABLE Codekata (user_id VARCHAR(7), topic_id VARCHAR(5), no_of_problems_solved INT(20));
+CREATE TABLE Attendance (user_id VARCHAR(7), no_of_days_present INT(3));
+CREATE TABLE Topics (topic_id VARCHAR(5), topic_name VARCHAR(30));
+CREATE TABLE Tasks (user_id VARCHAR(7), task_id VARCHAR(5), task_name VARCHAR(30));
+CREATE TABLE Company_Drives (company_id VARCHAR(5), company_name VARCHAR(45), user_id VARCHAR(7)); 
+CREATE TABLE Mentors (mentor_id VARCHAR(7), mentor_name VARCHAR(45), course_id VARCHAR(5));
+CREATE TABLE Students_Activated_Courses (user_id VARCHAR(7), course_id VARCHAR(5), mentor_id VARCHAR(7));
+CREATE TABLE Courses (course_id VARCHAR(5), course_name VARCHAR(30));
+
+*************************************************************************
+
+Q2.Insert at least 5 rows of values in each table.
+
+INSERT INTO Users VALUES ('1806666','Akash Singh'), ('1890776','Divya Sharma'), ('1800457','Marcel Clove'), ('1843907','Andrew James Arthur'), ('1809567','Holly Gill'); 
+INSERT INTO Codekata VALUES ('1806666','10677',7), ('1806666','19330',20), ('1806666','55098',12), ('1890776','19330',66), ('1800457','10677',16),('1800457','90754',26), ('1809567','55098',7), ('1809567','10677',18);
+INSERT INTO Attendance VALUES ('1806666',95), ('1890776',68), ('1800457',88), ('1843907',59), ('1809567',85);
+INSERT INTO Topics VALUES ('10677','Trees'), ('19330','C++'), ('55098','Python'), ('90754','Strings'), ('10348','Arrays');
+INSERT INTO Tasks VALUES ('1806666','12267','create user database'), ('1890776','13227','solve 15 c++ questions'), ('1800457','45632','insert into customer table'), ('1843907','13227','solve 15 c++ questions'), ('1809567','12267','create user database'), ('1843907','45634','insert into mentor table'), ('1890776','45633','insert into company table');
+INSERT INTO Company_Drives VALUES ('12345','Moogle','1806666'),('13456','Amagon','1806666'),('10785','Dyll','1806666'),('12345','Moogle','1890776'),('10785','Dyll','1890776'), ('15555','Adiras','1800457'), ('13456','Amagon','1843907'), ('15555','Adiras','1809567'), ('13456','Amagon','1809567');
+INSERT INTO Mentors VALUES ('6799980','Murli Vante','12255'),('6799980','Murli Vante','12257'),('6799981','Sima Panda','12268'),('6799981','Sima Panda','12255'),('6799981','Sima Panda','12267'),('6799982','Rosh Sanders','12289'),('6799983','Dave Evans','12268'),('6799983','Dave Evans','12257'),('6799984','Arti Singh','12289'),('6799985','Amrita Miller','12230');
+INSERT INTO Students_Activated_Courses VALUES ('1806666','12255','6799980'),('1890776','12255','6799981'),('1890776','12289','6799982'),('1800457','12257','6799983'),('1800457','12289','6799984'),('1800457','12267','6799981'),('1843907','12268','6799983'),('1809567','12230','6799985');
+INSERT INTO Courses VALUES ('12255','Java'),('12257','Python'),('12268','SQL'),('12267','DSA'),('12289','English'),('12230','Maths');
+
+
+***************************************************************************
+
+Q3.Get number problems solved in codekata by combining the users.
+
+SELECT us.`user_id`, `user_name`,SUM(`no_of_problems_solved`) AS total_no_of_problems_solved
+FROM `users` us JOIN `codekata` ck ON us.`user_id`= ck.`user_id` GROUP BY us.`user_id`;
+
+***************************************************************************
+
+Q4.Display the no of company drives attended by a user.
+
+SELECT us.`user_id`, `user_name`, COUNT(`company_id`) AS no_of_company_drives_attended
+FROM `users` us JOIN `company_drives` cd ON us.`user_id`=cd.`user_id` GROUP BY us.`user_id`;
+
+***************************************************************************
+
+Q5.Combine and display students_activated_courses and courses for a specific user groping them based on the course.
+
+SELECT cs.`course_id`, `course_name`, no_of_students
+FROM (SELECT `course_id`, COUNT(`user_id`) AS no_of_students FROM `students_activated_courses` GROUP BY `course_id`) sub_q
+JOIN `courses` cs ON sub_q.`course_id`=cs.`course_id`;
+
+***************************************************************************
+
+Q6.List all the mentors.
+
+SELECT DISTINCT `mentor_id`,`mentor_name` FROM `mentors`;
+
+***************************************************************************
+
+Q7.List the number of students that are assigned for a mentor.
+
+SELECT DISTINCT mt.`mentor_id`,`mentor_name`, no_of_students 
+FROM ( SELECT `mentor_id`, COUNT(`user_id`) AS no_of_students FROM `students_activated_courses` GROUP BY `mentor_id`) sub_q
+JOIN `mentors` mt ON sub_q.`mentor_id`=mt.`mentor_id`;
